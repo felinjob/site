@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        // Inicializa o EmailJS com seu User ID
+        (function() {
+            emailjs.init("oQrk3B-al6JE_RZwx"); // Substitua "YOUR_USER_ID" pelo seu User ID do EmailJS
+        })();
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="sobre.html">Sobre</a>
+            <a href="formacao.html">Formação</a>
+            <a href="portfolio.html">Portfólio</a>
+            <a href="contato.html">Contato</a>
+        </nav>
+    </header>
+    
+    <main>
+        <h2>Contato</h2>
+        <form id="contactForm">
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="message">Mensagem:</label>
+            <textarea id="message" name="message" required></textarea>
+            
+            <button type="button" onclick="sendEmail()">Enviar</button>
+        </form>
+        <p id="statusMessage"></p> <!-- Mensagem de status -->
+    </main>
+
+    <footer>
+        <p>2024 - Felipe Teles - Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Função para enviar o e-mail usando EmailJS
+        function sendEmail() {
+            // Obter dados do formulário
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
+
+            // Configura os parâmetros do e-mail de acordo com o modelo criado no EmailJS
+            const templateParams = {
+                from_name: name,
+                from_email: email,
+                message: message
+            };
+
+            // Envia o e-mail
+            emailjs.send("service_l6uhhvq", "template_27vzr8j", templateParams)
+                .then(response => {
+                    document.getElementById("statusMessage").innerText = "Mensagem enviada com sucesso!";
+                    document.getElementById("contactForm").reset(); // Limpa o formulário
+                })
+                .catch(error => {
+                    document.getElementById("statusMessage").innerText = "Erro ao enviar a mensagem. Tente novamente.";
+                    console.error("Erro:", error);
+                });
+        }
+    </script>
+</body>
+</html>
